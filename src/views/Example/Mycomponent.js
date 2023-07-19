@@ -13,8 +13,22 @@ class Mycomponent extends React.Component {
 
   addNewJob = (job) => {
     console.log(">>>check job from parent", job);
+    // let currentJobs = this.state.arrJobs;
+    // currentJobs.push(job);
     this.setState({
-      arrJobs: [...this.state.arrJobs, job],
+      arrJobs: [...this.state.arrJobs, job], //... is copy (copy current arrJobs) , is push
+      //   arrJobs: currentJobs,
+    });
+  };
+
+  deleteAJob = (job) => {
+    console.log(">>>check delete job from parent", job);
+    let currentJobs = this.state.arrJobs;
+    // currentJobs.pop(job);
+    currentJobs = currentJobs.filter((item) => item.id !== job.id);
+
+    this.setState({
+      arrJobs: currentJobs,
     });
   };
 
@@ -23,7 +37,10 @@ class Mycomponent extends React.Component {
       //return về 1 khối duy nhất.
       <>
         <AddComponent addNewJob={this.addNewJob} />
-        <ChildComponent arrJobs={this.state.arrJobs} />
+        <ChildComponent
+          arrJobs={this.state.arrJobs}
+          deleteAJob={this.deleteAJob}
+        />
       </>
     );
   }
